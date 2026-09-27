@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: vibratrace_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-vibratrace}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-vibratrace_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-vibratrace_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  mqtt_broker:
+    image: eclipse-mosquitto:2.0
+    container_name: vibratrace_mqtt
+    restart: always
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: vibratrace_backend
+    restart: always
+    depends_on:
+      - postgres
+      - mqtt_broker
+    environment:
+      DATABASE_URL: postgresql://vibratrace:vibratrace_secret@postgres:5432/vibratrace_db
+      MQTT_BROKER_HOST: mqtt_broker
+      MQTT_BROKER_PORT: 1883
+      JWT_SECRET: ${JWT_SECRET:-vibratrace_jwt_super_secret_key_2026}
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres_data:

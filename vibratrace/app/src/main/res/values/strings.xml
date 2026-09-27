@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">VibraTrace</string>
+    <string name="tagline">Sense → Secure → Store → Sync → Verify → Trace</string>
+    <string name="subtitle">Low-Cost IoT Blockchain Node for Secure Farm-to-Fork Traceability</string>
+</resources>

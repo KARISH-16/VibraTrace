@@ -1,0 +1,6 @@
+{
+  "name": "VibraTrace",
+  "description": "Low-Cost IoT Blockchain Node for Secure Farm-to-Fork Traceability",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
