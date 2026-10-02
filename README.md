@@ -1,4 +1,4 @@
-🌾 Dorothy
+🌾 DOROTHY 
 
 Low-Cost IoT Blockchain Node for Secure Farm-to-Fork Traceability
 
