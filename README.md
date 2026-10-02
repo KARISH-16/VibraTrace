@@ -1,16 +1,16 @@
-# 🌾 VibraTrace
+🌾 Dorothy
 
-### Low-Cost IoT Blockchain Node for Secure Farm-to-Fork Traceability
+Low-Cost IoT Blockchain Node for Secure Farm-to-Fork Traceability
 
-> **Sense → Secure → Store → Sync → Verify → Trace**
+«Sense → Secure → Store → Sync → Verify → Trace»
 
-VibraTrace is an **IoT-powered Farm-to-Fork traceability platform** designed to monitor perishable agricultural products throughout their supply chain.
+Dorothy is an IoT-powered Farm-to-Fork traceability platform designed to monitor perishable agricultural products throughout their supply chain.
 
-The system combines **ESP32-based IoT sensing, offline-first data buffering, MQTT communication, SHA-256 hash chaining, PostgreSQL persistence, blockchain-style event anchoring, and an Android application** to provide transparent and tamper-evident food traceability.
+The system combines ESP32-based IoT sensing, offline-first data buffering, MQTT communication, SHA-256 hash chaining, PostgreSQL persistence, blockchain-style event anchoring, and an Android application to provide transparent and tamper-evident food traceability.
 
 ---
 
-## 📌 Overview
+📌 Overview
 
 Perishable agricultural products such as fruits, vegetables, dairy products, and meat can experience significant losses because of:
 
@@ -23,13 +23,13 @@ Perishable agricultural products such as fruits, vegetables, dairy products, and
 * Network connectivity problems
 * Lack of trustworthy traceability records
 
-VibraTrace addresses these challenges by continuously collecting environmental and security data from an IoT device attached to a shipment.
+Dorothy addresses these challenges by continuously collecting environmental and security data from an IoT device attached to a shipment.
 
-The collected information can be buffered locally when connectivity is unavailable, synchronized when the network returns, cryptographically chained using **SHA-256**, stored by the backend, and presented through an Android application.
+The collected information can be buffered locally when connectivity is unavailable, synchronized when the network returns, cryptographically chained using SHA-256, stored by the backend, and presented through an Android application.
 
 ---
 
-# 🎯 Key Objectives
+🎯 Key Objectives
 
 * Monitor food transportation conditions in real time.
 * Detect temperature and humidity variations.
@@ -46,9 +46,9 @@ The collected information can be buffered locally when connectivity is unavailab
 
 ---
 
-# ✨ Features
+✨ Features
 
-## 🌡️ Environmental Monitoring
+🌡️ Environmental Monitoring
 
 The ESP32 node collects:
 
@@ -64,13 +64,12 @@ These measurements help identify potentially unsafe transportation conditions.
 
 ---
 
-## 🔐 Tamper Detection
+🔐 Tamper Detection
 
 A magnetic reed switch monitors the shipment container.
 
 If the container is opened unexpectedly:
 
-```text
 Container Opened
        ↓
 Reed Switch Triggered
@@ -82,27 +81,23 @@ SHA-256 Hash Created
 Backend Alert
        ↓
 Traceability Record
-```
 
 ---
 
-## 📡 Offline-First IoT Communication
+📡 Offline-First IoT Communication
 
 The system is designed to continue working even when cellular/network connectivity is temporarily unavailable.
 
 When the network is unavailable:
 
-```text
 ESP32
   ↓
 Sensor Reading
   ↓
 MicroSD Offline Queue
-```
 
 When connectivity returns:
 
-```text
 MicroSD Queue
       ↓
 Synchronization
@@ -110,13 +105,12 @@ Synchronization
 MQTT / Backend
       ↓
 Database
-```
 
 This prevents sensor readings from being lost during transportation.
 
 ---
 
-## 🔗 SHA-256 Hash Chaining
+🔗 SHA-256 Hash Chaining
 
 Each telemetry record contains:
 
@@ -125,7 +119,6 @@ Each telemetry record contains:
 
 Conceptually:
 
-```text
 Block 1
 Hash = H1
    ↓
@@ -136,7 +129,6 @@ Hash = H2
 Block 3
 Previous Hash = H2
 Hash = H3
-```
 
 This creates a tamper-evident chain of telemetry records.
 
@@ -144,41 +136,37 @@ The ESP32 uses SHA-256 hashing to generate the cryptographic digest.
 
 ---
 
-## ⛓️ Hybrid Blockchain / Ledger Architecture
+⛓️ Hybrid Blockchain / Ledger Architecture
 
-VibraTrace separates high-frequency telemetry from important state transitions.
+Dorothy separates high-frequency telemetry from important state transitions.
 
-### Regular telemetry
+Regular telemetry
 
 Stored in the backend database:
 
-```text
 Temperature
 Humidity
 Gas levels
 Battery
 Signal
 Telemetry timestamps
-```
 
-### Critical events
+Critical events
 
 Can be anchored through the ledger service:
 
-```text
 Tamper events
 Shipment stage changes
 Batch completion
 Critical state transitions
-```
 
 This reduces unnecessary blockchain storage while preserving important verification events.
 
 ---
 
-## 📱 Android Application
+📱 Android Application
 
-The Android application provides the user interface for interacting with the VibraTrace platform.
+The Android application provides the user interface for interacting with the Dorothy platform.
 
 The app uses:
 
@@ -196,7 +184,7 @@ The application supports real-time telemetry, shipment tracking, QR-based tracea
 
 ---
 
-## 📲 QR-Based Farm-to-Fork Traceability
+📲 QR-Based Farm-to-Fork Traceability
 
 Each shipment batch can have a QR token.
 
@@ -204,7 +192,6 @@ A consumer or authorized user can scan the QR code to access the shipment tracea
 
 Example flow:
 
-```text
 Farm
  ↓
 Packing
@@ -216,15 +203,13 @@ Cold Storage
 Distribution
  ↓
 Buyer
-```
 
 The traceability view can provide information about the shipment and its recorded environmental history.
 
 ---
 
-# 🏗️ System Architecture
+🏗️ System Architecture
 
-```text
  ┌───────────────────────────────────────────────┐
  │             IoT SENSOR LAYER                 │
  │                                               │
@@ -269,80 +254,74 @@ The traceability view can provide information about the shipment and its recorde
              │ PostgreSQL   │            │ Android App  │
              │ Database     │            │              │
              └──────────────┘            └──────────────┘
-```
 
 ---
 
-# 🛠️ Technologies Used
+🛠️ Technologies Used
 
-## Android
+Android
 
-| Technology         | Purpose                         |
-| ------------------ | ------------------------------- |
-| Kotlin             | Android application development |
-| Jetpack Compose    | Modern UI development           |
-| Material 3         | UI components and design        |
-| Room               | Local database / offline cache  |
-| Retrofit           | REST API communication          |
-| OkHttp             | HTTP networking                 |
-| Moshi              | JSON serialization              |
-| CameraX            | QR/barcode camera functionality |
-| Kotlin Coroutines  | Asynchronous operations         |
-| Navigation Compose | Application navigation          |
-| DataStore          | Local preferences               |
-| Firebase AI        | AI integration                  |
-
----
-
-## Backend
-
-| Technology | Purpose                               |
-| ---------- | ------------------------------------- |
-| Python     | Backend development                   |
-| FastAPI    | REST API framework                    |
-| Uvicorn    | ASGI server                           |
-| SQLAlchemy | Database ORM                          |
-| PostgreSQL | Persistent database                   |
-| SQLite     | Lightweight testing/fallback database |
-| MQTT       | IoT messaging                         |
-| WebSockets | Real-time telemetry                   |
-| SHA-256    | Data integrity verification           |
-| JWT        | Authentication                        |
+Technology| Purpose
+Kotlin| Android application development
+Jetpack Compose| Modern UI development
+Material 3| UI components and design
+Room| Local database / offline cache
+Retrofit| REST API communication
+OkHttp| HTTP networking
+Moshi| JSON serialization
+CameraX| QR/barcode camera functionality
+Kotlin Coroutines| Asynchronous operations
+Navigation Compose| Application navigation
+DataStore| Local preferences
+Firebase AI| AI integration
 
 ---
 
-## IoT / Embedded
+Backend
 
-| Technology           | Purpose                     |
-| -------------------- | --------------------------- |
-| ESP32                | IoT controller              |
-| C++                  | Firmware development        |
-| AHT20                | Temperature & humidity      |
-| Ethylene sensor      | Spoilage-gas monitoring     |
-| NH₃ sensor           | Gas monitoring              |
-| Reed switch          | Tamper detection            |
-| Piezoelectric sensor | Vibration/energy harvesting |
-| MicroSD              | Offline data buffering      |
-| SIM800C              | GSM/GPRS communication      |
-| MQTT                 | IoT telemetry transmission  |
-
----
-
-## Infrastructure
-
-| Technology     | Purpose                     |
-| -------------- | --------------------------- |
-| Docker         | Containerization            |
-| Docker Compose | Multi-service orchestration |
-| Mosquitto      | MQTT broker                 |
-| PostgreSQL     | Backend database            |
+Technology| Purpose
+Python| Backend development
+FastAPI| REST API framework
+Uvicorn| ASGI server
+SQLAlchemy| Database ORM
+PostgreSQL| Persistent database
+SQLite| Lightweight testing/fallback database
+MQTT| IoT messaging
+WebSockets| Real-time telemetry
+SHA-256| Data integrity verification
+JWT| Authentication
 
 ---
 
-# 📁 Project Structure
+IoT / Embedded
 
-```text
-VibraTrace/
+Technology| Purpose
+ESP32| IoT controller
+C++| Firmware development
+AHT20| Temperature & humidity
+Ethylene sensor| Spoilage-gas monitoring
+NH₃ sensor| Gas monitoring
+Reed switch| Tamper detection
+Piezoelectric sensor| Vibration/energy harvesting
+MicroSD| Offline data buffering
+SIM800C| GSM/GPRS communication
+MQTT| IoT telemetry transmission
+
+---
+
+Infrastructure
+
+Technology| Purpose
+Docker| Containerization
+Docker Compose| Multi-service orchestration
+Mosquitto| MQTT broker
+PostgreSQL| Backend database
+
+---
+
+📁 Project Structure
+
+Dorothy/
 │
 ├── app/
 │   ├── src/
@@ -395,15 +374,14 @@ VibraTrace/
 ├── settings.gradle.kts
 ├── metadata.json
 └── README.md
-```
 
 ---
 
-# ⚙️ Prerequisites
+⚙️ Prerequisites
 
-Before running VibraTrace, install/configure the following:
+Before running Dorothy, install/configure the following:
 
-### Android
+Android
 
 * Android Studio
 * JDK 11-compatible Java environment
@@ -411,13 +389,13 @@ Before running VibraTrace, install/configure the following:
 * Android SDK Platform 36
 * Android device or emulator
 
-### Backend
+Backend
 
 * Python 3.x
 * pip
 * PostgreSQL
 
-### IoT
+IoT
 
 * ESP32 development board
 * Arduino IDE or PlatformIO
@@ -425,281 +403,215 @@ Before running VibraTrace, install/configure the following:
 * MicroSD module
 * SIM800C module for cellular deployment
 
-### Optional
+Optional
 
 * Docker
 * Docker Compose
 
 ---
 
-# 🚀 Installation & Setup
+🚀 Installation & Setup
 
-## 1. Clone the Repository
+1. Clone the Repository
 
-```bash
-git clone https://github.com/YOUR_USERNAME/VibraTrace.git
-cd VibraTrace
-```
+git clone https://github.com/YOUR_USERNAME/Dorothy.git
+cd Dorothy
 
-Replace `YOUR_USERNAME` with your GitHub username.
+Replace "YOUR_USERNAME" with your GitHub username.
 
 ---
 
-# 📱 2. Setup Android Application
+📱 2. Setup Android Application
 
-Open the project folder in **Android Studio**.
+Open the project folder in Android Studio.
 
 The Android project uses:
 
-```text
 Kotlin
 Jetpack Compose
 Material 3
 Gradle Kotlin DSL
-```
 
-### Build the project
+Build the project
 
 On Windows:
 
-```bash
 gradlew.bat build
-```
 
 On Linux/macOS:
 
-```bash
 ./gradlew build
-```
 
-### Install debug APK
+Install debug APK
 
-```bash
 gradlew.bat installDebug
-```
 
 or:
 
-```bash
 ./gradlew installDebug
-```
 
-### Run tests
+Run tests
 
-```bash
 gradlew.bat test
-```
 
 or:
 
-```bash
 ./gradlew test
-```
 
 ---
 
-# 🔑 3. Environment Configuration
+🔑 3. Environment Configuration
 
 The project includes:
 
-```text
 .env.example
-```
 
 Create your local environment file:
 
-```text
 .env
-```
 
-Do **not** commit `.env` to GitHub.
-
-The repository `.gitignore` already excludes `.env`.
+Do not commit ".env" to GitHub.
 
 If Firebase/Gemini functionality is enabled, configure the required API credentials through your local development environment or Android Studio/AI Studio secrets configuration.
 
-### Important
+Important
 
 Never commit:
 
-```text
 .env
 API keys
 passwords
 private keys
 keystore files
 Firebase secret credentials
-```
 
 ---
 
-# 🐍 4. Setup Backend
+🐍 4. Setup Backend
 
 Navigate to the backend directory:
 
-```bash
 cd backend
-```
 
 Create a virtual environment:
 
-### Windows
+Windows
 
-```bash
 python -m venv venv
 venv\Scripts\activate
-```
 
-### Linux/macOS
+Linux/macOS
 
-```bash
 python3 -m venv venv
 source venv/bin/activate
-```
 
 Install dependencies:
 
-```bash
 pip install -r requirements.txt
-```
 
 ---
 
-# 🗄️ 5. Configure Database
+🗄️ 5. Configure Database
 
 The backend uses PostgreSQL by default.
 
 Example database configuration:
 
-```text
-DATABASE_URL=postgresql://vibratrace:vibratrace_secret@localhost:5432/vibratrace_db
-```
+DATABASE_URL=postgresql://dorothy:dorothy_secret@localhost:5432/dorothy_db
 
 The backend also supports SQLite for isolated/testing environments.
 
 For example:
 
-```text
-DATABASE_URL=sqlite:///./vibratrace.db
-```
+DATABASE_URL=sqlite:///./dorothy.db
 
 Make sure the selected database is running before starting the backend.
 
 ---
 
-# ▶️ 6. Run FastAPI Backend
+▶️ 6. Run FastAPI Backend
 
-From the `backend` directory:
+From the "backend" directory:
 
-```bash
 uvicorn app.main:app --reload
-```
 
 The backend will start at:
 
-```text
 http://localhost:8000
-```
 
 FastAPI Swagger documentation:
 
-```text
 http://localhost:8000/docs
-```
 
 ReDoc documentation:
 
-```text
 http://localhost:8000/redoc
-```
 
 ---
 
-# 🐳 7. Run Using Docker
+🐳 7. Run Using Docker
 
-VibraTrace includes Docker configuration for the backend infrastructure.
+Dorothy includes Docker configuration for the backend infrastructure.
 
 Navigate to:
 
-```bash
 cd docker
-```
 
 Start the services:
 
-```bash
 docker compose up -d
-```
 
 Check running containers:
 
-```bash
 docker compose ps
-```
 
 View logs:
 
-```bash
 docker compose logs -f
-```
 
 Stop the services:
 
-```bash
 docker compose down
-```
 
 The Docker environment is intended to provide:
 
-```text
 PostgreSQL
 Mosquitto MQTT Broker
 Backend services
-```
 
 ---
 
-# 📡 8. MQTT Architecture
+📡 8. MQTT Architecture
 
 The IoT communication layer uses MQTT.
 
 Telemetry topics follow the pattern:
 
-```text
-vibratrace/device/{deviceId}/telemetry
-```
+dorothy/device/{deviceId}/telemetry
 
 Offline synchronization uses:
 
-```text
-vibratrace/device/{deviceId}/sync
-```
+dorothy/device/{deviceId}/sync
 
 Example:
 
-```text
-vibratrace/device/VT-ESP32-001/telemetry
-```
+dorothy/device/DOR-ESP32-001/telemetry
 
 ---
 
-# 🔌 9. ESP32 Setup
+🔌 9. ESP32 Setup
 
 The ESP32 firmware is located at:
 
-```text
 esp32/src/main.cpp
-```
 
 Configuration is located at:
 
-```text
 esp32/include/config.h
-```
 
 The firmware is designed for an ESP32 development board.
 
-### Hardware components
+Hardware components
 
 * ESP32 DevKit
 * AHT20
@@ -712,34 +624,30 @@ The firmware is designed for an ESP32 development board.
 
 ---
 
-# 🔧 ESP32 Pin Configuration
+🔧 ESP32 Pin Configuration
 
-| Component       |    GPIO |
-| --------------- | ------: |
-| AHT20 SDA       | GPIO 21 |
-| AHT20 SCL       | GPIO 22 |
-| Ethylene Sensor | GPIO 34 |
-| NH₃ Sensor      | GPIO 35 |
-| Reed Switch     |  GPIO 4 |
-| Piezo Sensor    | GPIO 36 |
-| Battery Sense   | GPIO 39 |
-| MicroSD CS      |  GPIO 5 |
-| SIM800C TX      | GPIO 16 |
-| SIM800C RX      | GPIO 17 |
+Component| GPIO
+AHT20 SDA| GPIO 21
+AHT20 SCL| GPIO 22
+Ethylene Sensor| GPIO 34
+NH₃ Sensor| GPIO 35
+Reed Switch| GPIO 4
+Piezo Sensor| GPIO 36
+Battery Sense| GPIO 39
+MicroSD CS| GPIO 5
+SIM800C TX| GPIO 16
+SIM800C RX| GPIO 17
 
 Detailed wiring information is available in:
 
-```text
 docs/HARDWARE_WIRING.md
-```
 
 ---
 
-# 🧪 10. ESP32 Firmware Flow
+🧪 10. ESP32 Firmware Flow
 
 The firmware follows:
 
-```text
 Initialize ESP32
       ↓
 Initialize Sensors
@@ -765,17 +673,15 @@ Backend       Offline Queue
           Network Restored
                  ↓
               Sync
-```
 
 ---
 
-# 🔐 11. SHA-256 Verification
+🔐 11. SHA-256 Verification
 
 Each sensor event contains:
 
-```json
 {
-  "deviceId": "VT-ESP32-001",
+  "deviceId": "DOR-ESP32-001",
   "batchId": "FD2026-001",
   "eventId": "evt-1001",
   "temperature": 6.5,
@@ -788,7 +694,6 @@ Each sensor event contains:
   "hash": "...",
   "previousHash": "..."
 }
-```
 
 The next event references the previous event's hash.
 
@@ -796,84 +701,64 @@ This allows the backend to identify modifications to the chained telemetry histo
 
 ---
 
-# 🌐 API Endpoints
+🌐 API Endpoints
 
 The main API endpoints include:
 
-### Authentication
+Authentication
 
-```text
 POST /auth/register
 POST /auth/login
 GET  /auth/me
-```
 
-### Batches
+Batches
 
-```text
 GET    /batches
 POST   /batches
 GET    /batches/{id}
 PUT    /batches/{id}
 DELETE /batches/{id}
-```
 
-### Devices
+Devices
 
-```text
 GET  /devices
 POST /devices
-```
 
-### Sensor Telemetry
+Sensor Telemetry
 
-```text
 POST /sensor-readings
 GET  /batches/{id}/sensor-readings
 POST /sync
-```
 
-### Verification
+Verification
 
-```text
 POST /verification/verify
-```
 
-### Blockchain / Ledger
+Blockchain / Ledger
 
-```text
 POST /blockchain/submit
-```
 
-### Consumer Traceability
+Consumer Traceability
 
-```text
 GET /trace/{batchId}
-```
 
-### Real-Time Data
+Real-Time Data
 
-```text
 WS /ws
-```
 
 Complete API documentation:
 
-```text
 docs/API_DOCUMENTATION.md
-```
 
 ---
 
-# 🚨 Smart Alerts
+🚨 Smart Alerts
 
 The backend can generate alerts for critical shipment conditions.
 
 For example, the current backend logic identifies temperature excursions outside:
 
-```text
 2°C – 10°C
-```
 
 as a critical temperature event.
 
@@ -881,37 +766,30 @@ Tamper detection can also generate a high-severity event.
 
 Example:
 
-```text
 Temperature Excursion
         ↓
 CRITICAL Alert
-```
 
 or:
 
-```text
 Container Opened
         ↓
 Tamper Event
         ↓
 HIGH Severity
-```
 
 ---
 
-# 📊 Real-Time Monitoring
+📊 Real-Time Monitoring
 
 The backend exposes a WebSocket endpoint:
 
-```text
 /ws
-```
 
 The Android application can receive telemetry updates without repeatedly polling the REST API.
 
 Conceptually:
 
-```text
 ESP32
   ↓
 MQTT
@@ -921,15 +799,13 @@ FastAPI
 WebSocket
   ↓
 Android Dashboard
-```
 
 ---
 
-# 🧑‍🌾 Farm-to-Fork Workflow
+🧑‍🌾 Farm-to-Fork Workflow
 
 The system represents the shipment lifecycle as:
 
-```text
 ┌─────────┐
 │  FARM   │
 └────┬────┘
@@ -953,17 +829,15 @@ The system represents the shipment lifecycle as:
 ┌─────────┐
 │  BUYER  │
 └─────────┘
-```
 
 At every stage, the system can maintain the associated batch and telemetry history.
 
 ---
 
-# 📦 Example Shipment
+📦 Example Shipment
 
 Example batch:
 
-```text
 Batch ID:
 FD2026-001
 
@@ -971,14 +845,12 @@ Product:
 Fresh Produce
 
 Device:
-VT-ESP32-001
-```
+DOR-ESP32-001
 
 The associated IoT device continuously produces telemetry.
 
 Example:
 
-```text
 Temperature: 6.5°C
 Humidity: 72%
 Ethylene: 0.8 ppm
@@ -986,55 +858,45 @@ NH3: 3.2 ppm
 Battery: 94%
 Signal: -72 dBm
 Tamper: FALSE
-```
 
 ---
 
-# 🧪 Testing
+🧪 Testing
 
 Backend tests are located at:
 
-```text
 backend/tests/test_backend.py
-```
 
 Run:
 
-```bash
 cd backend
 pytest
-```
 
 For Android tests:
 
-```bash
 gradlew.bat test
-```
 
 For instrumentation tests:
 
-```bash
 gradlew.bat connectedAndroidTest
-```
 
 ---
 
-# 📚 Documentation
+📚 Documentation
 
 Additional project documentation:
 
-| Document                    | Description                            |
-| --------------------------- | -------------------------------------- |
-| `docs/ARCHITECTURE.md`      | System architecture and data pipelines |
-| `docs/API_DOCUMENTATION.md` | REST and WebSocket APIs                |
-| `docs/HARDWARE_WIRING.md`   | ESP32 hardware wiring                  |
-| `esp32/README.md`           | ESP32 firmware setup                   |
+Document| Description
+"docs/ARCHITECTURE.md"| System architecture and data pipelines
+"docs/API_DOCUMENTATION.md"| REST and WebSocket APIs
+"docs/HARDWARE_WIRING.md"| ESP32 hardware wiring
+"esp32/README.md"| ESP32 firmware setup
 
 ---
 
-# 🔒 Security Considerations
+🔒 Security Considerations
 
-VibraTrace incorporates multiple security mechanisms:
+Dorothy incorporates multiple security mechanisms:
 
 * SHA-256 telemetry hashing
 * Hash chaining
@@ -1046,11 +908,10 @@ VibraTrace incorporates multiple security mechanisms:
 * Environment-based secret configuration
 * Separation of telemetry and critical ledger events
 
-### Never commit secrets
+Never commit secrets
 
 Do not upload:
 
-```text
 .env
 *.jks
 *.keystore
@@ -1058,11 +919,10 @@ debug.keystore
 API keys
 Database passwords
 Private credentials
-```
 
 ---
 
-# 🌱 Future Scope
+🌱 Future Scope
 
 Potential future enhancements include:
 
@@ -1084,11 +944,10 @@ Potential future enhancements include:
 
 ---
 
-# 💡 Innovation
+💡 Innovation
 
-VibraTrace combines several technologies into one traceability workflow:
+Dorothy combines several technologies into one traceability workflow:
 
-```text
 IoT Sensors
      +
 Offline-First Storage
@@ -1106,95 +965,22 @@ Real-Time WebSockets
 QR Traceability
      =
 Farm-to-Fork Trust
-```
 
 The key concept is that the system does not depend entirely on continuous internet connectivity. Sensor data can continue to be collected locally and synchronized later.
 
 ---
 
-# 🎯 Use Cases
+🎯 Use Cases
 
-VibraTrace can be adapted for:
+Dorothy can be adapted for:
 
 * Fruits and vegetables
 * Dairy products
 * Meat transportation
-* Seafood logistics
-* Pharmaceutical cold chains
-* Food distribution
-* Cold-storage monitoring
+* Seafood
+* Cold-chain logistics
 * Agricultural supply chains
-* Warehouse monitoring
-* Temperature-sensitive logistics
-
----
-
-# 📌 Project Status
-
-**Project:** VibraTrace
-**Version:** 1.0
-**Platform:** Android + FastAPI + ESP32
-**Architecture:** IoT + Backend + Database + Ledger + Mobile Application
-
-This repository contains the project implementation, embedded firmware, backend services, Docker configuration, and technical documentation.
-
----
-
-# 🤝 Contributing
-
-Contributions are welcome.
-
-### Fork the repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/VibraTrace.git
-```
-
-Create a feature branch:
-
-```bash
-git checkout -b feature/your-feature
-```
-
-Commit your changes:
-
-```bash
-git add .
-git commit -m "Add your feature"
-```
-
-Push:
-
-```bash
-git push origin feature/your-feature
-```
-
-Then open a Pull Request on GitHub.
-
----
-
-# 📄 License
-
-This project is currently intended for **educational, research, prototype, and hackathon purposes**.
-
-Add an appropriate open-source license before distributing the project publicly for production use.
-
----
-
-# 👩‍💻 Developed By
-
-**VibraTrace Team**
-
-### Project Theme
-
-> **Secure • Connected • Transparent • Traceable**
-
----
-
-## ⭐ VibraTrace
-
-**From Farm to Fork — Every Journey Can Be Traced.**
-
-```text
-SENSE → SECURE → STORE → SYNC → VERIFY → TRACE
-```
+* Food distribution networks
+* Perishable goods transportation
+* Farm-to-retail traceability
+* Food quality monitoring
